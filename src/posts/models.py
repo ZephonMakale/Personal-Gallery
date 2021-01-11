@@ -71,6 +71,6 @@ class Comment(models.Model):
     def __str__(self):
         return self.user.username
 
-class NewsLetterRecipients(models.Model):
+class NewsLetterRecipient(models.Model):
     name = models.CharField(max_length = 30)
     email = models.EmailField()

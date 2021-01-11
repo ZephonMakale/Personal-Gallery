@@ -2,9 +2,18 @@ from django.db.models import Count, Q
 from django.http import HttpResponse, Http404,HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect, reverse
-from .models import Post, NewsLetterRecipients
 from .forms import NewsLetterForm, CommentForm, PostForm
+from .models import Post
+from .models import Author
+from .models import NewsLetterRecipient
 
+
+
+def get_author(user):
+    qs = Author.objects.filter(user=user)
+    if qs.exists():
+        return qs[0]
+    return None
 
 
 def search(request):
@@ -32,7 +41,7 @@ def index(request):
         if form.is_valid():
             name = form.cleaned_data['your_name']
             email = form.cleaned_data['email']
-            recipient = NewsLetterRecipients(name = name,email =email)
+            recipient = NewsLetterRecipient(name = name,email =email)
             recipient.save()
             HttpResponseRedirect('index')
 
@@ -95,11 +104,13 @@ def post(request, id):
     return render(request, 'post.html', context)
 
 def post_create(request):
-    form = PostForm(request.POST or None)
+    form = PostForm(request.POST or None, request.FILES or None)
+    author = get_author(request.user)
     if request.method == "POST":
         if form.is_valid():
+            form.instance.author = author
             form.save()
-            return redirect(reverse("post_details", kwargs = { 'id': form.instance.id }))
+            return redirect(reverse("post_details", kwargs={ 'id': form.instance.id }))
     context = { 'form': form }
     return render(request, "post_create.html", context)
 
