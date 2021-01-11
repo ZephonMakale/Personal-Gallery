@@ -3,7 +3,7 @@ from django.http import HttpResponse, Http404,HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from .models import Post, NewsLetterRecipients
-from .forms import NewsLetterForm, CommentForm
+from .forms import NewsLetterForm, CommentForm, PostForm
 
 
 
@@ -95,10 +95,13 @@ def post(request, id):
     return render(request, 'post.html', context)
 
 def post_create(request):
-    pass
-
-def post_delete(request, id):
-    pass
+    form = PostForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect(reverse("post_details", kwargs = { 'id': form.instance.id }))
+    context = { 'form': form }
+    return render(request, "post_create.html", context)
 
 def post_update(request, id):
     pass
