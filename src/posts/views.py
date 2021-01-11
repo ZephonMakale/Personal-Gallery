@@ -93,3 +93,15 @@ def post(request, id):
         'category_count': category_count
     }
     return render(request, 'post.html', context)
+
+def post_create(request):
+    pass
+
+def post_delete(request, id):
+    pass
+
+def post_update(request, id):
+    pass
+
+def post_delete(request, id):
+    pass
