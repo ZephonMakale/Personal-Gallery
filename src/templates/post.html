@@ -21,9 +21,9 @@
                     <a href="#">{{ cat }}</a>
                   {% endfor %}
                   </div>
-                  <div class="div">
-                    <a href="">Update</a>
-                    <a href="">Delete</a>
+                  <div class="post-tags">
+                    <a href="{% url 'post-update' id=post.id %}" class="tag">Update</a>
+                    <a href="{% url 'post-delete' id=post.id %}" class="tag">Delete</a>
                   </div>
                 </div>
                 <h1>{{ post.title }}<a href="#"><i class="fa fa-bookmark-o"></i></a></h1>
