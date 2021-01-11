@@ -1,13 +1,4 @@
-// ==================================================
-// fancyBox v3.5.6
-//
-// Licensed GPLv3 for open source use
-// or fancyBox Commercial License for commercial use
-//
-// http://fancyapps.com/fancybox/
-// Copyright 2018 fancyApps
-//
-// ==================================================
+
 (function(window, document, $, undefined) {
   "use strict";
 
@@ -15,15 +6,13 @@
     info: function(stuff) {}
   };
 
-  // If there's no jQuery, fancyBox can't work
-  // =========================================
+
 
   if (!$) {
     return;
   }
 
-  // Check if fancyBox is already initialized
-  // ========================================
+
 
   if ($.fn.fancybox) {
     console.info("fancyBox already initialized");
@@ -31,74 +20,59 @@
     return;
   }
 
-  // Private default settings
-  // ========================
+ 
 
   var defaults = {
-    // Close existing modals
-    // Set this to false if you do not need to stack multiple instances
+    
     closeExisting: false,
 
-    // Enable infinite gallery navigation
+    
     loop: false,
 
-    // Horizontal space between slides
+    
     gutter: 50,
 
-    // Enable keyboard navigation
+    
     keyboard: true,
 
-    // Should allow caption to overlap the content
+    
     preventCaptionOverlap: true,
 
-    // Should display navigation arrows at the screen edges
+    
     arrows: true,
 
-    // Should display counter at the top left corner
+
     infobar: true,
 
-    // Should display close button (using `btnTpl.smallBtn` template) over the content
-    // Can be true, false, "auto"
-    // If "auto" - will be automatically enabled for "html", "inline" or "ajax" items
+  
     smallBtn: "auto",
 
-    // Should display toolbar (buttons at the top)
-    // Can be true, false, "auto"
-    // If "auto" - will be automatically hidden if "smallBtn" is enabled
     toolbar: "auto",
 
-    // What buttons should appear in the top right corner.
-    // Buttons will be created using templates from `btnTpl` option
-    // and they will be placed into toolbar (class="fancybox-toolbar"` element)
+
     buttons: [
       "zoom",
-      //"share",
+
       "slideShow",
-      //"fullScreen",
-      //"download",
+  
       "thumbs",
       "close"
     ],
 
-    // Detect "idle" time in seconds
+  
     idleTime: 3,
 
-    // Disable right-click and use simple image protection for images
+    
     protect: false,
 
-    // Shortcut to make content "modal" - disable keyboard navigtion, hide buttons, etc
     modal: false,
 
     image: {
-      // Wait for images to load before displaying
-      //   true  - wait for image to load and then display;
-      //   false - display thumbnail and load the full-sized image over top,
-      //           requires predefined image dimensions (`data-width` and `data-height` attributes)
       preload: false
     },
 
     ajax: {
-      // Object containing settings for ajax request
+
       settings: {
         // This helps to indicate that request comes from the modal
         // Feel free to change naming
