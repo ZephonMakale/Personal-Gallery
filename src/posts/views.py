@@ -79,6 +79,10 @@ def post(request, id):
     category_count = get_category_count()
     latest_post = Post.objects.order_by('-timestamp')[:3]
     post = get_object_or_404(Post, id = id)
+    form = CommentForm(request.POST or None):
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
     context = {
         'post': post,
         'latest_post': latest_post,
