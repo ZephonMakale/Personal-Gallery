@@ -24,6 +24,7 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+
 class Post(models.Model):
     title = models.CharField(max_length = 100)
     overview = models.TextField()
@@ -46,11 +47,16 @@ class Post(models.Model):
             'id': self.id
         })
 
-class NewsLetterRecipients(models.Model):
-    name = models.CharField(max_length = 30)
-    email = models.EmailField()
 
 class Comment(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add = True)
     content = models.TextField()
+    post = models.ForeignKey(Post, on_delete = models.CASCADE)
+    
+    def __str__(self):
+        return self.user.username
+
+class NewsLetterRecipients(models.Model):
+    name = models.CharField(max_length = 30)
+    email = models.EmailField()
