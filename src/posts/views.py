@@ -1,8 +1,10 @@
 from django.db.models import Count, Q
+from django.http import HttpResponse, Http404,HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
-from .models import Post
-from marketing.models import Signup
+from .models import Post, NewsLetterRecipients
+from .forms import NewsLetterForm
+
 
 def search(request):
     queryset = Post.objects.all()
@@ -24,11 +26,23 @@ def index(request):
     featured = Post.objects.filter(featured = True)
     latest = Post.objects.order_by('-timestamp')[0:3]
 
-    if request.method == "POST":
-        email = request.POST["email"]
-        new_signup = Signup()
-        new_signup.email = email
-        new_signup.save()
+    if request.method == 'POST':
+        form = NewsLetterForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['your_name']
+            email = form.cleaned_data['email']
+            recipient = NewsLetterRecipients(name = name,email =email)
+            recipient.save()
+            HttpResponseRedirect('index')
+
+        else:
+            form = NewsLetterForm()
+
+    # if request.method == "POST":
+    #     email = request.POST["email"]
+    #     new_signup = Signup()
+    #     new_signup.email = email
+    #     new_signup.save()
 
     context = {
         'object_list': featured,

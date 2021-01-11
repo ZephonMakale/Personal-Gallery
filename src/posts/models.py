@@ -35,3 +35,7 @@ class Post(models.Model):
         return reverse('post_details', kwargs={
             'id': self.id
         })
+
+class NewsLetterRecipients(models.Model):
+    name = models.CharField(max_length = 30)
+    email = models.EmailField()
