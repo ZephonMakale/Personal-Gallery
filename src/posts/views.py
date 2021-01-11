@@ -1,7 +1,7 @@
 from django.db.models import Count, Q
 from django.http import HttpResponse, Http404,HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from .models import Post, NewsLetterRecipients
 from .forms import NewsLetterForm, CommentForm
 
@@ -85,6 +85,7 @@ def post(request, id):
             form.instance.user = request.user
             form.instance.post = post
             form.save()
+            return redirect(reverse("post_details", kwargs = {'id': post.id}))
     context = {
         'form': form,
         'post': post,

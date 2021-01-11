@@ -61,7 +61,7 @@
                 </div>
                 <div class="post-comments">
                   <header>
-                    <h3 class="h6">Post Comments<span class="no-of-comments">(3)</span></h3>
+                    <h3 class="h6">Post Comments<span class="no-of-comments">({{ post.comments.count}}) </span></h3>
                   </header>
                   {% for comment in post.get_comments %}
                   <div class="comment">
@@ -69,7 +69,7 @@
                       <div class="user d-flex align-items-center">
                         <div class="image">
                           {% if comment.user.author %}
-                          <img src="{% static 'img/user.svg' %}" alt="..." class="img-fluid rounded-circle">
+                          <img src="{{ comment.user.author.profile_picture.url }}" alt="..." class="img-fluid rounded-circle">
                           {% else %}
                           <img src="{% static 'img/user.svg' %}" alt="..." class="img-fluid rounded-circle">
                           {% endif %}
