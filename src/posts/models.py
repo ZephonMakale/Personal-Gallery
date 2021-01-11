@@ -50,7 +50,7 @@ class Post(models.Model):
 
     @property
     def get_comments(self):
-        return self.comments.all()
+        return self.comments.all().order_by('-timestamp')
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
