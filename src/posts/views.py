@@ -4,7 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from .forms import NewsLetterForm, CommentForm, PostForm
 from .models import Post
-from .models import Author
+from .models import Author, PostView
 from .models import NewsLetterRecipient
 
 
@@ -88,6 +88,8 @@ def post(request, id):
     category_count = get_category_count()
     latest_post = Post.objects.order_by('-timestamp')[:3]
     post = get_object_or_404(Post, id = id)
+
+    PostView.objects.get_or_create(user = request.user, post = post)
     form = CommentForm(request.POST or None)
     if request.method == "POST":
         if form.is_valid():

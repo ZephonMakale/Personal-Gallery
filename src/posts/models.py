@@ -32,7 +32,7 @@ class Post(models.Model):
     timestamp = models.DateTimeField(auto_now_add = True)
     content = HTMLField()
     comment_count = models.IntegerField(default=0)
-    view_count = models.IntegerField(default=0)
+    # view_count = models.IntegerField(default=0)
     author = models.ForeignKey(Author, on_delete = models.CASCADE)
     thumbnail = models.ImageField()
     categories = models.ManyToManyField(Category)
@@ -61,6 +61,10 @@ class Post(models.Model):
     @property
     def get_comments(self):
         return self.comments.all().order_by('-timestamp')
+
+    @property
+    def view_count(self):
+        return PostView.objects.filter(post = self).count()
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
