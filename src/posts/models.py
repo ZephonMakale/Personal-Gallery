@@ -53,7 +53,7 @@ class Post(models.Model):
         return self.comments.all()
 
 class Comment(models.Model):
-    user = models.OneToOneField(User, on_delete = models.CASCADE)
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add = True)
     content = models.TextField()
     post = models.ForeignKey(Post, related_name = 'comments', on_delete = models.CASCADE)
