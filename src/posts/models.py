@@ -49,3 +49,8 @@ class Post(models.Model):
 class NewsLetterRecipients(models.Model):
     name = models.CharField(max_length = 30)
     email = models.EmailField()
+
+class Comment(models.Model):
+    user = models.OneToOneField(User, on_delete = models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add = True)
+    content = models.TextField()
