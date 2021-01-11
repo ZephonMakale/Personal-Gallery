@@ -82,8 +82,11 @@ def post(request, id):
     form = CommentForm(request.POST or None):
     if request.method == "POST":
         if form.is_valid():
+            form.instance.user = request.user
+            form.instance.post = post
             form.save()
     context = {
+        'form': form,
         'post': post,
         'latest_post': latest_post,
         'category_count': category_count
