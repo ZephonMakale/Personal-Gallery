@@ -49,7 +49,7 @@ class Post(models.Model):
         })
 
     @property
-    def comments(self):
+    def get_comments(self):
         return self.comments.all()
 
 class Comment(models.Model):
