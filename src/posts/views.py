@@ -2,10 +2,13 @@ from django.db.models import Count, Q
 from django.http import HttpResponse, Http404,HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.contrib.auth.decorators import login_required
 from .forms import NewsLetterForm, CommentForm, PostForm
 from .models import Post
 from .models import Author, PostView
 from .models import NewsLetterRecipient
+
+
 
 
 
@@ -84,12 +87,14 @@ def blog(request):
     }
     return render(request, 'blog.html', context)
 
+
 def post(request, id):
     category_count = get_category_count()
     latest_post = Post.objects.order_by('-timestamp')[:3]
     post = get_object_or_404(Post, id = id)
 
-    PostView.objects.get_or_create(user = request.user, post = post)
+    if request.user.is_authenticated:
+        PostView.objects.get_or_create(user = request.user, post = post)
     form = CommentForm(request.POST or None)
     if request.method == "POST":
         if form.is_valid():
