@@ -14,7 +14,7 @@ class PostView(models.Model):
         return self.user.username
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
-    profile_image = models.ImageField(upload_to = 'author/')
+    profile_image = models.ImageField(upload_to ='author/')
     # profile_picture = models.ImageField()
 
     def __str__(self):
@@ -40,11 +40,8 @@ class Post(models.Model):
     overview = models.TextField()
     timestamp = models.DateTimeField(auto_now_add = True)
     content = HTMLField()
-    # comment_count = models.IntegerField(default=0)
-    # view_count = models.IntegerField(default=0)
     author = models.ForeignKey(Author, on_delete = models.CASCADE)
     thumbnail = models.ImageField(upload_to = 'author/')
-    # profile_image = models.ImageField(upload_to = 'author/')
     categories = models.ManyToManyField(Category)
     featured = models.BooleanField()
     previous_post = models.ForeignKey('self', related_name = 'previous', on_delete = models.SET_NULL, blank=True, null=True)
@@ -84,3 +81,4 @@ class Post(models.Model):
 class NewsLetterRecipient(models.Model):
     name = models.CharField(max_length = 30)
     email = models.EmailField()
+
