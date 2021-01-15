@@ -1,5 +1,5 @@
 #!/bin/sh
-'''exec' "/Users/macbookpro/Desktop/distribution 2/env/bin/python" "$0" "$@"
+'''exec' "/Users/macbookpro/Desktop/distribution 2/env/bin/python3" "$0" "$@"
 ' '''
 # -*- coding: utf-8 -*-
 import re
